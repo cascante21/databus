@@ -40,3 +40,6 @@ geopandas>=1.1.1
 requests>=2.32.5
 pillow>=11.3.0
 mkdocs-material>=9.6.18
+
+# GraphQL
+strawberry-graphql-django>=0.47.0

@@ -36,7 +36,9 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 INSTALLED_APPS = [
     "daphne",
     "channels",
-    "corsheaders",  # CORS headers support
+    "corsheaders",
+    "strawberry.django",
+    "graphql_api",
     "gtfs.apps.GtfsConfig",
     "feed.apps.FeedConfig",
     "website.apps.WebsiteConfig",

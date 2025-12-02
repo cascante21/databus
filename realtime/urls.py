@@ -19,10 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.decorators.csrf import csrf_exempt
+from strawberry.django.views import GraphQLView
+from graphql_api.schema import schema
 import os
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema))),
     path("", include("website.urls")),
     path("gtfs/", include("gtfs.urls")),
     path("api/", include("api.urls")),
@@ -35,3 +39,10 @@ if settings.DEBUG or serve_static_flag:
     # For debugging purposes, serve media and static files through Django.
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+    # Django Debug Toolbar
+    try:
+        import debug_toolbar
+        urlpatterns = [path("__debug__/", include("debug_toolbar.urls"))] + urlpatterns
+    except ImportError:
+        pass
